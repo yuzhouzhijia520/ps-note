@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+</head>
+
+<body>
+<canvas id="yuanxing" width="1000" height="1000"></canvas>
+<script >
+var canvas=document.getElementById("yuanxing");
+var context=canvas.getContext("2d");
+context.fillStyle="#FF0000";
+context.beginPath();
+context.moveTo(200,200);
+context.arc(200,200,100,Math.PI*0.5,Math.PI*2); //Math.PI*2是JS计算方法，是圆
+context.closePath();
+context.fill();
+</script>
+</body>
+</html>
