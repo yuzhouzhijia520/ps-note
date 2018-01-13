@@ -1,5 +1,5 @@
 ## 前面的话
-### 与setTimeout和setInterval不同，requestAnimationFrame不需要设置时间间隔。这有什么好处呢？为什么requestAnimationFrame被称为神器呢？本文将详细介绍HTML5新增的定时器requestAnimationFrame
+### 与setTimeout和setInterval不同，requestAnimationFrame不需要设置时间间隔。HTML5新增的定时器requestAnimationFrame
 
  
 
