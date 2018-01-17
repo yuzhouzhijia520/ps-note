@@ -16,3 +16,11 @@
 * 1、响应时间可能会受到其他网站流量的影响。CDN服务提供商在其所有客户之间共享Web服务器组。
 * 2、如果CDN服务质量下降了，那么你的工作质量也将下降
 * 3、无法直接控制组件服务器
+## 添加Expires头
+* 页面的初次访问者会进行很多HTTP请求，但是通过使用一个长久的Expires头，可以使这些组件被缓存，下次访问的时候，就可以减少不必要的HTPP请求，从而提高加载速度。
+* Web服务器通过Expires头告诉客户端可以使用一个组件的当前副本，直到指定的时间为止。例如：
+* Expires: Fri, 18 Mar 2016 07:41:53 GMT
+* Expires缺点： 它要求服务器和客户端时钟严格同步；过期日期需要经常检查
+* HTTP1.1中引入Cache-Control来克服Expires头的限制，使用max-age指定组件被缓存多久。
+* Cache-Control： max-age=12345600
+* 若同时制定Cache-Control和Expires，则max-age将覆盖Expires头
