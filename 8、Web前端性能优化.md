@@ -67,7 +67,7 @@ p {
 ```
 鼠标移动了几次，函数的运行次数轻而易举的达到了几千次，危险性显而易见。</br>
 如何解决：</br>
-一次性表达式：</br>
+尽可能使用一次性表达式：</br>
 ```
 p {
     width: expression(func(this));
@@ -92,7 +92,40 @@ p {
 ```
 *事件处理机制</br>
 * 用js事件处理机制来动态改变元素的样式，使函数运行次数在可控范围之内。
-
+## 9、使用外部的JavaScript和CSS
+* 内联脚本或者样式可以减少HTTP请求，按理来说可以提高页面加载的速度。然而在实际情况中，当脚本或者样式是从外部引入的文件，浏览器就有可能缓存它们，从而在以后加载的时候能够直接使用缓存，而HTML文档的大小减小，从而提高加载速度。
+*影响因素：
+* 1、每个用户产生的页面浏览量越少，内联脚本和样式的论据越强势。譬如一个用户每个月只访问你的网站一两次，那么这种情况下内联将会更好。而如果该用户能够产生很多页面浏览量，那么缓存的样式和脚本将会极大减少下载的时间，提交页面加载速度。
+* 2、如果你的网站不同的页面之间使用的组件大致相同，那么使用外部文件可以提高这些组件的重用率。
+*加载后下载
+* 有时候我们希望内联样式和脚本，但又可以为接下来的页面提供外部文件。那么我们可以在页面加载完成止呕动态加载外部组件，以便用户接下来的访问。
+```
+function doOnload() {
+      setTimeout("downloadFile()",1000);
+  }
+  
+  window.onload = doOnload;
+  
+  function downloadFile() {
+      downloadCss("http://abc.com/css/a.css");
+      downloadJS("http://abc.com/js/a.js");
+ }
  
+ function downloadCss(url) {
+     var ele = document.createElement('link');
+     ele.rel = "stylesheet";
+     ele.type = "text/css";
+     ele.href = url;
+ 
+     document.body.appendChild(ele);
+ }
+ 
+ function downloadJS(url) {
+     var ele = document.createElement('script');
+     ele.src = url;
+     document.body.appendChild(ele);
+ }
+```
+* 在该页面中，JavaScript和CSS被加载两次（内联和外部）。要使其正常工作，必须处理双重定义。将这些组件放到一个不可见的IFrame中是一个比较好的解决方式。
 
 
