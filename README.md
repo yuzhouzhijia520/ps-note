@@ -10,3 +10,4 @@
 ## 9、前端基础及进阶修炼<a href='https://www.freecodecamp.cn/home'>Link</a>
 ## 10、MDN 常用API帮助文档中心 https://developer.mozilla.org/en-US/docs/Web/JavaScript
 ## 11、人工智能之人脸识别 https://github.com/TadasBaltrusaitis/OpenFace
+## 12、vue+VueRouter+VueCookie+mockjs+webpack+webpack-dev-server+extract-text-webpack-plugin+html-webpack-plugin+less
