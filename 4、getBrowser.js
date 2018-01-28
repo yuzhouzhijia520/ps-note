@@ -1,7 +1,7 @@
 // return like "chrome"
-// 返回浏览器的类型: "ie", "firefox", "chrome", "opera", "safari", "unknow"
+// 返回浏览器的类型: ""chrome", "firefox","safari",ie",  "opera",  "unknow"
 // call like: getBrowser(1)
-// return like "chrome/50.0.2661.102"
+// return like "chrome/63.0.xxx.xxx"
 // call like: getBrowser()
 // 调用方法：    import {getBrowser} from './getBrowser.js'; //
 export function getBrowser(getVersion) {//浏览器
@@ -22,7 +22,7 @@ export function getBrowser(getVersion) {//浏览器
          browser_chi_Type = (ie_Tridents[trident] || ie_aer_rv) > 0 ? "ie" : undefined;
      }else{
          //判断 windows edge 浏览器
-         // match_str[1]: 返回浏览器及版本号,如: "edge/13.10586"
+         // match_str[1]: 返回浏览器及版本号,如: "edge/15.10111.sss"
          // match_str[1]: 返回版本号,如: "edge" 
          //若要返回 "edge" 请把下行的 "ie" 换成 "edge"。 注意引号及冒号是英文状态下输入的
          browser_chi_Type = (match_str = ua_str.match(/edge\/([\d.]+)/)) ? "ie" :
