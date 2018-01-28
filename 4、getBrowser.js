@@ -1,9 +1,9 @@
+// return like "chrome"
 // 返回浏览器的类型: "ie", "firefox", "chrome", "opera", "safari", "unknow"
 // call like: getBrowser(1)
 // return like "chrome/50.0.2661.102"
 // call like: getBrowser()
-// return like "chrome"
-//使用e.g.    import {getBrowser} from './getBrowser.js'; //
+// 调用方法：    import {getBrowser} from './getBrowser.js'; //
 export function getBrowser(getVersion) {//浏览器
     //注意关键字大小写
      let ua_str = navigator.userAgent.toLowerCase(), ie_Tridents, trident, match_str, ie_aer_rv, browser_chi_Type;
