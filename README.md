@@ -19,3 +19,4 @@
 ## 18、fundebug debugger调试
 ## 19、mxgraph 流程图
 ## 20、http://zh.learnlayout.com css
+## 21、https://jex.im/regulex  正则验证
