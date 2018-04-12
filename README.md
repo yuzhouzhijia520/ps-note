@@ -20,4 +20,4 @@
 ## 19、mxgraph 流程图
 ## 20、http://zh.learnlayout.com css
 ## 21、https://jex.im/regulex  正则验证
-## 22、http://pad.haroopress.com/ 时序图
+## 22、https://www.websequencediagrams.com/ 时序图
