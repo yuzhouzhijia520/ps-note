@@ -27,4 +27,5 @@
 ## 26、webstorm注册码：http://idea.lanyus.com/  https://blog.csdn.net/voke_/article/details/76418116 
 * 汉化：https://blog.csdn.net/jiaowo_ccc/article/details/78480143
 * 主题设置：http://color-themes.com/?view=index  http://www.phpstorm-themes.com/themes-list?title=dark&field_tags_tid=All&field_tags_tid=All
+## 27、http://www.windowszj.com/news/13696.html win10激活工具注意先关闭防毒工具（windows defender）
   
