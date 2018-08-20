@@ -30,3 +30,9 @@
 ## 27、http://www.windowszj.com/news/13696.html win10激活工具注意先关闭防毒工具（windows defender）
 ## 28、https://samples.enhancer.io/ 构建器
   
+Axure8注册码:
+授权人：
+University of Science and Technology of China (CLASSROOM)
+
+授权密钥：DTXRAnPn1P65Rt0xB4eTQ+4bF5IUF0gu0X9XBEUhM4QxY0DRFJxYEmgh4nyh7RtL
+  
