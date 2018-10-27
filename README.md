@@ -30,6 +30,7 @@
 ## 27、http://www.windowszj.com/news/13696.html win10激活工具注意先关闭防毒工具（windows defender）
 ## 28、https://samples.enhancer.io/ 构建器
 ## 29、chrome://inspect 移动端调试
+## 30、https://lanhuapp.com 高保真
   
 Axure8注册码:
 授权人：
