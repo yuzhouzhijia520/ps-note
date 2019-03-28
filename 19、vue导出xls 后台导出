@@ -1,0 +1,59 @@
+export function  batchExport(data) {
+　　　　 class Processor { 
+            constructor(res) {
+                return res;
+            }
+        };
+        return new Promise((resolve, reject) => {
+            $axios({
+                method: 'post',
+                url: '/shopapi/order/export',
+                headers: {
+                    post:{
+                        'Content-Type': 'application/json; application/octet-stream'
+                    }
+                },
+                params: data,
+                responseType:'blob',
+            }).then((result) => {
+　　　　　　　　 resolve(new Processor(result));
+　　　　　　 }).catch((result) => {
+　　　　　　　　 reject(new Processor(result));
+　　　　　　 })
+　　　　});
+　　}
+  
+  batchExport(){
+            let that=this;
+            let data={
+                start_time:this.start_time,
+                end_time:this.end_time,
+                state:this.state,
+                keyword:this.seach_input,
+                trade_no:this.seach_order,
+                receive_way:this.receive_way,
+                pay_type:this.form.pay_type,
+                order_type:this.order_type,
+                good_name:this.form.goodName,
+                secret: localStorage.getItem("secretId")
+            }
+            this.downloadLoading = true
+            batchExport(data).then((res)=>{
+                let time = new Date();
+                let year = time.getFullYear();
+                let month = time.getMonth() + 1;
+                let day = time.getDate();
+                let name = year + "" + month + "" + day;
+                let b = new Blob([res.data], { type: 'application/vnd.ms-excel' });          
+                let url = URL.createObjectURL(b);            
+                let link = document.createElement('a');            
+                    link.download = '订单汇总表'+dateFormat(that.start_time,'{y}/{m}/{d}')+'--'+
+                    dateFormat(that.end_time,'{y}/{m}/{d}')+'.xls';            
+                    link.href = url;     
+                    link.click();
+                    that.downloadLoading = false;
+            }).catch((err)=>{
+                that.downloadLoading = false
+                that.$message.error('系统出错，请联系管理员！');
+            })
+        },
