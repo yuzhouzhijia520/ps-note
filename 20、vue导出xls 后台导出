@@ -1,30 +1,63 @@
-export function  batchExport(data) {
+/**
+ * 注意不能用axios
+ * @param {接口} Api https://...
+ * @param {请求参数} data Object
+ *  excel 导出
+ */
+   export function  batchExport(Api,data) {
 　　　　 class Processor { 
             constructor(res) {
+                debugger
                 return res;
             }
         };
         return new Promise((resolve, reject) => {
-            $axios({
-                method: 'post',
-                url: '/shopapi/order/export',
-                headers: {
-                    post:{
-                        'Content-Type': 'application/json; application/octet-stream'
-                    }
-                },
-                params: data,
-                responseType:'blob',
-            }).then((result) => {
-　　　　　　　　 resolve(new Processor(result));
-　　　　　　 }).catch((result) => {
-　　　　　　　　 reject(new Processor(result));
-　　　　　　 })
+            let xhr;
+            xhr = new XMLHttpRequest();
+            xhr.open('post', Api, true);
+            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
+            xhr.responseType = 'arraybuffer';
+            xhr.onload = function (e) {
+                if (this.status === 200) {
+                    resolve(new Processor(this.response));
+                }
+            };
+            xhr.onerror = function (err) {
+                reject(new Processor(err));
+            };
+            xhr.send(data);
 　　　　});
 　　}
   
-  batchExport(){
+  
+  /**
+ *  @param data typeof object
+ * xhr post请求格式转换
+ *  
+ **/
+export function encodeFormData (data){  
+    let pairs = [];  
+    let regexp = /%20/g;  
+    for (let name in data){  
+      let value = data[name].toString();  
+      let pair = encodeURIComponent(name).replace(regexp, "+") + "=" +  
+        encodeURIComponent(value).replace(regexp, "+");  
+        pairs.push(pair);  
+    }  
+    return pairs.join("&");  
+};  
+
+
+ batchExport(){
             let that=this;
+            if(!this.start_time){
+                this.$message.error('请选择起止时间！');
+                return false;
+            }
+            if(!this.end_time){
+                this.$message.error('请选择截止时间！');
+                return false;
+            }
             let data={
                 start_time:this.start_time,
                 end_time:this.end_time,
@@ -35,25 +68,42 @@ export function  batchExport(data) {
                 pay_type:this.form.pay_type,
                 order_type:this.order_type,
                 good_name:this.form.goodName,
-                secret: localStorage.getItem("secretId")
+                secret: localStorage.getItem("secretId"),
+                nickName:this.nickName,
+                phone:this.phone
             }
-            this.downloadLoading = true
-            batchExport(data).then((res)=>{
-                let time = new Date();
-                let year = time.getFullYear();
-                let month = time.getMonth() + 1;
-                let day = time.getDate();
-                let name = year + "" + month + "" + day;
-                let b = new Blob([res.data], { type: 'application/vnd.ms-excel' });          
-                let url = URL.createObjectURL(b);            
-                let link = document.createElement('a');            
-                    link.download = '订单汇总表'+dateFormat(that.start_time,'{y}/{m}/{d}')+'--'+
-                    dateFormat(that.end_time,'{y}/{m}/{d}')+'.xls';            
-                    link.href = url;     
-                    link.click();
-                    that.downloadLoading = false;
-            }).catch((err)=>{
+            let url=this.url+'/shopapi/order/export'+'?token='+localStorage.getItem('userId');
+            let time = new Date();
+            let year = time.getFullYear();
+            let month = time.getMonth() + 1;
+            let day = time.getDate();
+            let name = year + "" + month + "" + day;//文件名称
+            let fileName=name+'.xls';
+            this.downloadLoading = true;
+            batchExport(url,encodeFormData(data)).then((res)=>{
                 that.downloadLoading = false
-                that.$message.error('系统出错，请联系管理员！');
+                let  xhr = new XMLHttpRequest();
+                let type = xhr.getResponseHeader('Content-Type');
+                let blob = new Blob([res], {type: type});
+                if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                    window.navigator.msSaveBlob(blob, fileName);
+                } else {
+                    let URL = window.URL || window.webkitURL;
+                    let objectUrl = URL.createObjectURL(blob);
+                    if (fileName) {
+                        let a = document.createElement('a');
+                        if (typeof a.download === 'undefined') {
+                            window.location = objectUrl;
+                        } else {
+                            a.href = objectUrl;
+                            a.download = fileName;
+                            document.body.appendChild(a);
+                            a.click();
+                            a.remove();
+                        }
+                    } else {
+                        window.location = objectUrl
+                    }
+                }
             })
         },
