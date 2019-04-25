@@ -1,14 +1,17 @@
 /**
- * 注意不能用axios
+ * 
  * @param {接口} Api https://...
  * @param {请求参数} data Object
  *  excel 导出
  */
    export function  batchExport(Api,data) {
 　　　　 class Processor { 
-            constructor(res) {
-                debugger
-                return res;
+            constructor(res,type) {
+                let result={
+                    res:res,
+                    type:type
+                }
+                return result;
             }
         };
         return new Promise((resolve, reject) => {
@@ -19,7 +22,7 @@
             xhr.responseType = 'arraybuffer';
             xhr.onload = function (e) {
                 if (this.status === 200) {
-                    resolve(new Processor(this.response));
+                    resolve(new Processor(this.response,xhr.getResponseHeader('Content-Type')));
                 }
             };
             xhr.onerror = function (err) {
@@ -50,17 +53,9 @@ export function encodeFormData (data){
 
  batchExport(){
             let that=this;
-            if(!this.start_time){
-                this.$message.error('请选择起止时间！');
-                return false;
-            }
-            if(!this.end_time){
-                this.$message.error('请选择截止时间！');
-                return false;
-            }
             let data={
-                start_time:this.start_time,
-                end_time:this.end_time,
+                start_time:this.time[0],
+                end_time:this.time[1],
                 state:this.state,
                 keyword:this.seach_input,
                 trade_no:this.seach_order,
@@ -69,7 +64,7 @@ export function encodeFormData (data){
                 order_type:this.order_type,
                 good_name:this.form.goodName,
                 secret: localStorage.getItem("secretId"),
-                nickName:this.nickName,
+                nick_name:this.nick_name,
                 phone:this.phone
             }
             let url=this.url+'/shopapi/order/export'+'?token='+localStorage.getItem('userId');
@@ -82,28 +77,32 @@ export function encodeFormData (data){
             this.downloadLoading = true;
             batchExport(url,encodeFormData(data)).then((res)=>{
                 that.downloadLoading = false
-                let  xhr = new XMLHttpRequest();
-                let type = xhr.getResponseHeader('Content-Type');
-                let blob = new Blob([res], {type: type});
-                if (typeof window.navigator.msSaveBlob !== 'undefined') {
-                    window.navigator.msSaveBlob(blob, fileName);
-                } else {
-                    let URL = window.URL || window.webkitURL;
-                    let objectUrl = URL.createObjectURL(blob);
-                    if (fileName) {
-                        let a = document.createElement('a');
-                        if (typeof a.download === 'undefined') {
-                            window.location = objectUrl;
-                        } else {
-                            a.href = objectUrl;
-                            a.download = fileName;
-                            document.body.appendChild(a);
-                            a.click();
-                            a.remove();
-                        }
+                let blob = new Blob([res], {type: res.type});
+                //let str='{"code":403,"msg":"无订单数据导出","sub_code":0,"sub_msg":""}'  
+                //blob = new Blob([str], {type: type})=68
+                if(blob.size>68){
+                    if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                        window.navigator.msSaveBlob(blob, fileName);
                     } else {
-                        window.location = objectUrl
+                        let URL = window.URL || window.webkitURL;
+                        let objectUrl = URL.createObjectURL(blob);
+                        if (fileName) {
+                            let a = document.createElement('a');
+                            if (typeof a.download === 'undefined') {
+                                window.location = objectUrl;
+                            } else {
+                                a.href = objectUrl;
+                                a.download = fileName;
+                                document.body.appendChild(a);
+                                a.click();
+                                a.remove();
+                            }
+                        } else {
+                            window.location = objectUrl
+                        }
                     }
+                }else{
+                    that.$message.error('未查询到相关数据可导出');
                 }
             })
-        },
+        }
