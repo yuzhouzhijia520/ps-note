@@ -1,6 +1,6 @@
 ## 1、减少HTTP请求
 >> 改善响应时间最简单的途径就是减少HTTP请求的数量。
-## 2、CSS Sprites（sprites 工具 <a link="https://www.codeandweb.com/texturepacker">texturePacker</a>）
+## 2、CSS Sprites（sprites 工具 [texturePacker]("https://www.codeandweb.com/texturepacker")
 >> CSS Sprites直译过来就是CSS精灵，但是这种翻译显然是不够的，其实就是通过将多个图片融合到一副图里面，然后通过CSS的一些技术布局到网页上。特别是图片特别多的网站，如果能用css sprites降低图片数量，带来的将是速度的提升。
 * PS：使用CSS Sprites还有可能降低下载量，可能大家会认为合并后的图片会比分离图片的总和要大，因为还有可能会附加空白区域。实际上，合并后的图片会比分离的图片总和要小，因为它降低了图片自身的开销，譬如颜色表、格式信息等。
 * 字体图标
