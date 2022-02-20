@@ -33,6 +33,7 @@
 ## 30、https://lanhuapp.com 高保真
 ## 31、广告清道夫 https://www.wisecleaner.com.cn
 ## 32、cross  解决方案 ：--disable-web-security --user-data-dir=C:\MyChromeDevUserData   C盘建一个文件夹MyChromeDevUserData
+## 33、<a href='https://gitstar-ranking.com/'>github rank</a>
 Axure8注册码:
 授权人：
 University of Science and Technology of China (CLASSROOM)
