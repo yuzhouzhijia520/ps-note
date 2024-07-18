@@ -39,4 +39,6 @@ Axure8注册码:
 University of Science and Technology of China (CLASSROOM)
 
 授权密钥：DTXRAnPn1P65Rt0xB4eTQ+4bF5IUF0gu0X9XBEUhM4QxY0DRFJxYEmgh4nyh7RtL
+
+visual studio 2022 Professional（专业版）： TD244-P4NB7-YQ6XK-Y8MMM-YWV2J
   
